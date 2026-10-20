@@ -6,7 +6,7 @@
     "url": "https://github.com/omsocll/proofslip/pull/11",
     "head_sha": "a93773a3322b41b1296f869e51ff341a99dee5e7",
     "overall": "partly_checked",
-    "created_at": "2026-10-20T12:41:35Z",
+    "created_at": "2026-10-20T12:42:07Z",
     "summary_plain": "Cursor was asked to point the README demos at the new receipts. 1 file changed (4 lines added, 4 removed). What we could check matches what the agent said. One claim still needs a human to look at it.",
     "agent": "Cursor"
   },
