@@ -6,7 +6,7 @@
     "url": "https://github.com/omsocll/proofslip/pull/13",
     "head_sha": "12d0962cced4202cf849859d93be53f26add504c",
     "overall": "partly_checked",
-    "created_at": "2026-10-20T16:40:45Z",
+    "created_at": "2026-10-20T16:41:11Z",
     "summary_plain": "Cursor was asked to add a receipt mark to the site wordmark and favicon. 9 files changed (130 lines added, 8 removed). What we could check matches what the agent said. 2 claims still need a human to look at them.",
     "agent": "Cursor"
   },
