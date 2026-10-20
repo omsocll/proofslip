@@ -1,0 +1,52 @@
+{
+  "schema": "agent-receipt/v0",
+  "id": "omsocll-proofslip-pr-11-a93773a",
+  "created_at": "2026-10-20T12:41:35Z",
+  "repo": "omsocll/proofslip",
+  "pr": {
+    "number": 11,
+    "url": "https://github.com/omsocll/proofslip/pull/11",
+    "head_sha": "a93773a3322b41b1296f869e51ff341a99dee5e7",
+    "author": "omsocll"
+  },
+  "agent": {
+    "name": "Cursor",
+    "detected_by": "body_marker"
+  },
+  "task": {
+    "source": "pr",
+    "text": "Point the README demos at the new receipts"
+  },
+  "changes": {
+    "files_changed": 1,
+    "additions": 4,
+    "deletions": 4,
+    "files": [
+      "README.md"
+    ]
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "This updates the README links and the quoted lines so they match those receipts",
+      "type": "other",
+      "verdict": "unverifiable",
+      "evidence": [
+        {
+          "kind": "note",
+          "detail": "Nothing in the diff or the check runs can show this."
+        }
+      ]
+    }
+  ],
+  "red_flags": [],
+  "overall": "partly_checked",
+  "summary_plain": "Cursor was asked to point the README demos at the new receipts. 1 file changed (4 lines added, 4 removed). What we could check matches what the agent said. One claim still needs a human to look at it.",
+  "unverified": [
+    "\"This updates the README links and the quoted lines so they match those receipts\" — nothing in GitHub's records covers it."
+  ],
+  "generator": {
+    "name": "proofslip",
+    "version": "0.1.1"
+  }
+}
