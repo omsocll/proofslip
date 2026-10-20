@@ -1,6 +1,6 @@
 import { isCiConfig, isTestFile } from "./diff.js";
 import type { Receipt, ReceiptClaim } from "./types.js";
-import { backtick, formatList, lowerFirst } from "./text.js";
+import { backtick, countLabel, formatList, lowerFirst } from "./text.js";
 
 export const VERDICT_ICON = {
   confirmed: "✅",
@@ -57,8 +57,7 @@ export function summaryPlain(receipt: Receipt): string {
 export function describeChanges(receipt: Receipt): string {
   const { files_changed: count, additions, deletions, files } = receipt.changes;
   if (count === 0 || files.length === 0) return "No files changed.";
-  const noun = count === 1 ? "file" : "files";
-  const line = `${count} ${noun} changed, ${additions} ${additions === 1 ? "line" : "lines"} added and ${deletions} removed.`;
+  const line = `${countLabel(count, "file")} changed, ${countLabel(additions, "line")} added and ${deletions} removed.`;
   const readmes: string[] = [];
   const tests: string[] = [];
   const ci: string[] = [];
