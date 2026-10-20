@@ -40,6 +40,12 @@ describe("public site", () => {
     expect(index).toContain(`data-copy="proofslip receipt --repo owner/name --pr 42"`);
     expect(index).toContain("fonts/outfit-800.woff2");
     expect(fs.existsSync(path.join(out, "fonts", "outfit-800.woff2"))).toBe(true);
+    expect(index).toContain('<link rel="icon" href="/favicon.svg" type="image/svg+xml">');
+    expect(index).toContain('<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">');
+    expect(index).toContain('<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">');
+    expect(fs.readFileSync(path.join(out, "favicon.svg"), "utf8")).toContain("#0f5132");
+    expect(fs.existsSync(path.join(out, "favicon.png"))).toBe(true);
+    expect(fs.existsSync(path.join(out, "apple-touch-icon.png"))).toBe(true);
     const log = fs.readFileSync(path.join(out, "log", "index.html"), "utf8");
     expect(log).toContain("Receipt log");
     expect(log).toContain("Get started");
@@ -49,6 +55,8 @@ describe("public site", () => {
     for (const page of [index, log, receipt]) {
       const visible = page.replaceAll("https://x.com/kickscosmo", "").replaceAll("@kickscosmo", "");
       expect(visible).not.toMatch(email);
+      expect(page).toContain('<link rel="icon" href="/favicon.svg" type="image/svg+xml">');
+      expect(page).toMatch(/class="mark"[^>]*>[\s\S]*?<\/svg>proofslip<\/a>/);
     }
     expect(receipt).toContain("What the agent was asked");
     expect(receipt).toContain("../../fonts/outfit-800.woff2");

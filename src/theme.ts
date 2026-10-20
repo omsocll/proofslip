@@ -51,11 +51,44 @@ function fontsSource(): string {
   return found;
 }
 
+const MARK_PATH = "M7 4h18v12l-4.5 9-4.5-9-4.5 9L7 16V4z";
+const MARK_CHECK = "M11.6 11.4 14.4 14.3 21.2 7.4";
+
+export function renderMark(): string {
+  return `<svg class="mark" viewBox="6 3 20 23" width="19" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="${MARK_PATH}"/><path d="${MARK_CHECK}" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+export function renderIcons(): string {
+  return `  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">`;
+}
+
+export function copyBrandAssets(outDir: string): void {
+  const source = brandSource();
+  fs.mkdirSync(outDir, { recursive: true });
+  for (const name of ["favicon.svg", "favicon.png", "apple-touch-icon.png"]) {
+    fs.copyFileSync(path.join(source, name), path.join(outDir, name));
+  }
+}
+
+function brandSource(): string {
+  const here = typeof __dirname === "string" ? __dirname : process.cwd();
+  const candidates = [
+    path.resolve("site"),
+    path.resolve(here, "../site"),
+    path.resolve(here, "../../site"),
+  ];
+  const found = candidates.find((dir) => fs.existsSync(path.join(dir, "favicon.svg")));
+  if (!found) throw new Error("proofslip could not find site/favicon.svg. Run the site build from the repository root.");
+  return found;
+}
+
 export function renderNav(links: ChromeLinks): string {
   const item = (href: string, label: string, current: boolean) =>
     `<a href="${escapeAttr(href)}"${current ? ' aria-current="page"' : ""}>${label}</a>`;
   return `<header class="nav wrap">
-    <a class="brand" href="${escapeAttr(links.home)}">proofslip<svg class="mark" viewBox="0 0 16 18" width="14" height="16" aria-hidden="true"><path fill="currentColor" d="M3 1.2h10a1 1 0 0 1 1 1V16l-2.2-1.35L9.8 16 8 14.65 6.2 16l-2-1.35L2 16V2.2a1 1 0 0 1 1-1Zm1.3 3.1h7.4v1.15H4.3V4.3Zm0 2.5h7.4v1.15H4.3V6.8Zm0 2.5h4.6v1.15H4.3V9.3Z"/></svg></a>
+    <a class="brand" href="${escapeAttr(links.home)}">${renderMark()}proofslip</a>
     <nav class="nav-links" aria-label="Site">
       ${item(links.home, "Home", links.current === "home")}
       ${item(links.log, "Log", links.current === "log")}
@@ -109,14 +142,18 @@ img, svg { max-width: 100%; }
   padding: 1.05rem 0 0.4rem;
 }
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   justify-self: start;
   color: var(--ink);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.04em;
+  line-height: 1;
 }
-.mark { width: 0.78em; height: auto; margin-left: 0.28em; vertical-align: -0.08em; color: var(--accent); }
+.mark { width: 19px; height: 22px; max-width: none; flex: none; display: block; color: var(--accent); }
 .nav-links { display: flex; gap: 1.6rem; align-items: center; }
 .nav-links a { color: var(--ink); text-decoration: none; font-weight: 500; }
 .nav-links a[aria-current="page"] { color: var(--accent); }
