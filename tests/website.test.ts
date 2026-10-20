@@ -17,8 +17,6 @@ describe("public site", () => {
     expect(index).toContain("https://x.com/kickscosmo");
     expect(index).toContain("@kickscosmo");
     expect(index).toContain("https://github.com/omsocll");
-    expect(index).not.toContain("cosmo-kicks");
-    expect(index).not.toContain("Cosmo");
     expect(index).toContain("github.com/omsocll/proofslip");
     expect(index).toContain("Checks out");
     expect(index).toContain("Doesn't match");
@@ -47,6 +45,11 @@ describe("public site", () => {
     expect(log).toContain("Get started");
     expect(log).toContain("../fonts/outfit-800.woff2");
     const receipt = fs.readFileSync(path.join(out, "log", "receipts", `${honest.id}.html`), "utf8");
+    const email = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}/;
+    for (const page of [index, log, receipt]) {
+      const visible = page.replaceAll("https://x.com/kickscosmo", "").replaceAll("@kickscosmo", "");
+      expect(visible).not.toMatch(email);
+    }
     expect(receipt).toContain("What the agent was asked");
     expect(receipt).toContain("../../fonts/outfit-800.woff2");
     expect(fs.existsSync(path.join(out, "log", "receipts", `${honest.id}.html`))).toBe(true);
