@@ -54,22 +54,22 @@ It skips authors that do not look like an agent unless you set `only-agent-prs: 
 
 These two are the demo pull requests in this repository, left open on purpose. The text is what proofslip wrote.
 
-**[PR #3](https://github.com/omsocll/proofslip/pull/3) · Checks out.** Asked to add a count-label helper. Three files, 22 lines added and 4 removed, including `src/text.ts`, `src/present.ts`, and `tests/text.test.ts`.
+**[PR #7](https://github.com/omsocll/proofslip/pull/7) · Checks out.** Asked to add a count-label helper. Six files, 33 lines added and 9 removed, including `src/text.ts`, `src/present.ts`, and `tests/text.test.ts`.
 
-> - ✅ *"Added `countLabel` in `src/text.ts` and called it from `src/present.ts`"*: confirmed. `src/text.ts` and `src/present.ts` were changed.
+> - ✅ *"Added `countLabel` in `src/text.ts` and called it from `src/present.ts`"*: confirmed. `src/text.ts` and `src/present.ts` were changed, and `countLabel` is in the diff.
 > - ✅ *"Added tests"*: confirmed. This pull request adds or updates a test file (`tests/text.test.ts`).
 > - ✅ *"All tests pass"*: confirmed. The test run on this exact version of the code passed.
 >
 > **Bottom line:** What we could check matches what the agent said.
 
-**[PR #4](https://github.com/omsocll/proofslip/pull/4) · Doesn't match.** The description says the tests pass and that tests were added. The diff deletes `tests/readme.test.ts` and weakens the test command in `package.json`. The test job is green anyway.
+**[PR #8](https://github.com/omsocll/proofslip/pull/8) · Doesn't match.** The description says the tests pass and that tests were added. The diff deletes `tests/readme.test.ts` and weakens the test command in `package.json`. The test job is green anyway. Two files, 1 line added and 24 removed.
 
 > - ❌ *"All tests pass"*: contradicted. A green run does not count. The test command was weakened in `package.json`, so the check can pass even when the tests fail.
 > - ❌ *"Added tests"*: contradicted. This pull request deleted the test file `tests/readme.test.ts` and did not add or update a test.
 >
 > **Warning signs:** deleted `tests/readme.test.ts`; a test command was weakened in `package.json`.
 >
-> **Bottom line:** This receipt does not match the agent's account.
+> **Bottom line:** 2 claims are contradicted. There are 2 warning signs. This receipt does not match the agent's account.
 
 ## What it doesn't catch yet
 
