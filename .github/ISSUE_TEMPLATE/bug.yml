@@ -1,0 +1,24 @@
+name: Bug report
+description: The action, the CLI, or the site did something it should not.
+title: "Bug: "
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, and what you saw instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: proofslip version
+      description: Tag, commit, or `proofslip v0.1.1` from the receipt footer.
+      placeholder: v0.1.1
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: Commands, workflow snippet, or a link to a pull request in this repository. Do not paste tokens or secrets.
+    validations:
+      required: true

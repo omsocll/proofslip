@@ -1,0 +1,55 @@
+{
+  "name": "honest",
+  "now": "2026-10-19T09:40:00.000Z",
+  "evidence": {
+    "repo": "omsocll/demo",
+    "number": 7,
+    "url": "https://github.com/omsocll/demo/pull/7",
+    "title": "Add a health check endpoint",
+    "body": "Adds `src/health.ts` and covers it with tests.\n\nAll tests pass.\n\nFixes #3",
+    "author": "copilot-swe-agent[bot]",
+    "headSha": "abc1234deadbeef000000000000000000000000",
+    "additions": 40,
+    "deletions": 1,
+    "labels": [],
+    "linkedIssues": [
+      {
+        "number": 3,
+        "title": "Add a health check endpoint",
+        "body": "We need a /health route. Please make sure all tests pass before you finish."
+      }
+    ],
+    "commits": [
+      {
+        "sha": "abc1234deadbeef000000000000000000000000",
+        "message": "Add health check\n\nCo-authored-by: Copilot <175728472+Copilot@users.noreply.github.com>"
+      }
+    ],
+    "comments": [],
+    "files": [
+      {
+        "filename": "src/health.ts",
+        "status": "added",
+        "additions": 15,
+        "deletions": 0,
+        "patch": "@@ -0,0 +1,4 @@\n+export function health() {\n+  return { ok: true };\n+}\n"
+      },
+      {
+        "filename": "src/health.test.ts",
+        "status": "added",
+        "additions": 25,
+        "deletions": 0,
+        "patch": "@@ -0,0 +1,6 @@\n+import { health } from \"./health\";\n+// covers #3\n+test(\"health\", () => {\n+  expect(health().ok).toBe(true);\n+});\n"
+      }
+    ],
+    "checkRuns": [
+      {
+        "name": "test",
+        "status": "completed",
+        "conclusion": "success",
+        "sha": "abc1234deadbeef000000000000000000000000",
+        "url": "https://github.com/omsocll/demo/actions/runs/100"
+      }
+    ]
+  }
+}

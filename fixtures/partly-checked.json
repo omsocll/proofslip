@@ -1,0 +1,64 @@
+{
+  "name": "partly-checked",
+  "now": "2026-10-19T09:40:00.000Z",
+  "evidence": {
+    "repo": "omsocll/demo",
+    "number": 42,
+    "url": "https://github.com/omsocll/demo/pull/42",
+    "title": "Add dark mode toggle",
+    "body": "Updated `src/Settings.tsx` to add a toggle to the settings page.\n\nAll tests pass.\n\nWorks on mobile.",
+    "author": "copilot-swe-agent[bot]",
+    "headSha": "3f9c2e1",
+    "additions": 120,
+    "deletions": 8,
+    "labels": [],
+    "linkedIssues": [
+      {
+        "number": 17,
+        "title": "Add dark mode toggle to settings page",
+        "body": "Settings should grow a dark mode toggle."
+      }
+    ],
+    "commits": [],
+    "comments": [],
+    "files": [
+      {
+        "filename": "src/Settings.tsx",
+        "status": "modified",
+        "additions": 40,
+        "deletions": 4,
+        "patch": "@@\n+export function DarkModeToggle() {\n+  return <button>Dark mode</button>;\n+}\n"
+      },
+      {
+        "filename": "src/theme.ts",
+        "status": "modified",
+        "additions": 30,
+        "deletions": 2,
+        "patch": "@@\n+export const darkTheme = { background: \"#111\" };\n"
+      },
+      {
+        "filename": "src/Settings.test.tsx",
+        "status": "added",
+        "additions": 40,
+        "deletions": 0,
+        "patch": "@@\n+test(\"toggle\", () => {\n+  expect(true).toBe(true);\n+});\n"
+      },
+      {
+        "filename": "README.md",
+        "status": "modified",
+        "additions": 10,
+        "deletions": 2,
+        "patch": "@@\n+Settings includes a dark mode toggle.\n"
+      }
+    ],
+    "checkRuns": [
+      {
+        "name": "test",
+        "status": "completed",
+        "conclusion": "success",
+        "sha": "3f9c2e1",
+        "url": "https://github.com/omsocll/demo/actions/runs/123"
+      }
+    ]
+  }
+}

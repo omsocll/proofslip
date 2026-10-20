@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/omsocll/proofslip/schema/receipt.v0.json",
+  "title": "proofslip receipt",
+  "description": "A plain-English receipt comparing an AI agent's pull request claims with GitHub evidence. The schema identifier agent-receipt/v0 is the receipt format. proofslip is the tool that writes it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "created_at",
+    "repo",
+    "pr",
+    "agent",
+    "task",
+    "changes",
+    "claims",
+    "red_flags",
+    "overall",
+    "summary_plain",
+    "generator"
+  ],
+  "properties": {
+    "schema": { "const": "agent-receipt/v0" },
+    "id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "repo": { "type": "string", "minLength": 1 },
+    "pr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "url", "head_sha", "author"],
+      "properties": {
+        "number": { "type": "integer" },
+        "url": { "type": "string" },
+        "head_sha": { "type": "string" },
+        "author": { "type": "string" }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "detected_by"],
+      "properties": {
+        "name": { "type": "string" },
+        "detected_by": {
+          "enum": ["author", "label", "commit_trailer", "body_marker", "unspecified"]
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "text"],
+      "properties": {
+        "source": { "type": "string" },
+        "text": { "type": "string" }
+      }
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["files_changed", "additions", "deletions", "files"],
+      "properties": {
+        "files_changed": { "type": "integer", "minimum": 0 },
+        "additions": { "type": "integer", "minimum": 0 },
+        "deletions": { "type": "integer", "minimum": 0 },
+        "files": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "red_flags": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/redFlag" }
+    },
+    "overall": { "enum": ["checks_out", "partly_checked", "doesnt_match"] },
+    "summary_plain": { "type": "string" },
+    "unverified": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Plain-English list of what GitHub's records could not show. Optional so earlier examples still validate. proofslip always writes it."
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "proofslip" },
+        "version": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "verdict": { "enum": ["confirmed", "contradicted", "stale", "unverifiable"] },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "type", "verdict", "evidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "type": {
+          "enum": [
+            "tests_pass",
+            "build_pass",
+            "lint_pass",
+            "typecheck_pass",
+            "checks_pass",
+            "file_changed",
+            "added_tests",
+            "fixed_issue",
+            "other"
+          ]
+        },
+        "verdict": { "$ref": "#/$defs/verdict" },
+        "hedged": {
+          "type": "boolean",
+          "description": "True when the agent already spoke with a hedge or a negation, such as 'should work' or 'couldn't run tests'."
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidence" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["check_run", "diff", "issue", "note"] },
+        "name": { "type": "string" },
+        "conclusion": { "type": ["string", "null"] },
+        "sha": { "type": "string" },
+        "url": { "type": "string" },
+        "file": { "type": "string" },
+        "detail": { "type": "string" }
+      }
+    },
+    "redFlag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "summary", "files"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "tests_deleted",
+            "tests_skipped",
+            "assertions_removed",
+            "ci_config_edited",
+            "test_command_weakened",
+            "ci_never_ran",
+            "check_failed"
+          ]
+        },
+        "summary": { "type": "string" },
+        "files": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

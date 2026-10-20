@@ -1,0 +1,4 @@
+Outfit and IBM Plex Mono are used under the SIL Open Font License, Version 1.1.
+Outfit © The Outfit Project Authors.
+IBM Plex Mono © IBM Corp.
+The license text is at https://openfontlicense.org.

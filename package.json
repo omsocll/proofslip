@@ -1,0 +1,61 @@
+{
+  "name": "proofslip",
+  "version": "0.1.1",
+  "description": "Plain-English receipts for AI agent pull requests, built from GitHub's own evidence.",
+  "author": "omsocll (https://x.com/kickscosmo)",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omsocll/proofslip.git"
+  },
+  "homepage": "https://proofslip.vercel.app",
+  "bugs": {
+    "url": "https://github.com/omsocll/proofslip/issues"
+  },
+  "keywords": [
+    "proofslip",
+    "github-action",
+    "ai-agents",
+    "code-review",
+    "pull-requests",
+    "developer-tools"
+  ],
+  "bin": {
+    "proofslip": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "action.yml",
+    "schema",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup && chmod +x dist/cli.js",
+    "build:site": "npm run build && node dist/cli.js site --receipts site/receipts --out site-dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@octokit/rest": "^22.0.0",
+    "zod": "^3.24.2"
+  },
+  "overrides": {
+    "esbuild": "0.28.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "ajv": "^8.17.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vitest": "^5.0.5"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "ci-never-ran",
+  "now": "2026-10-19T09:43:00.000Z",
+  "evidence": {
+    "repo": "omsocll/demo",
+    "number": 10,
+    "url": "https://github.com/omsocll/demo/pull/10",
+    "title": "Adjust the greeting",
+    "body": "All tests pass.",
+    "author": "cursor[bot]",
+    "headSha": "ddddddd333333333333333333333333333333333",
+    "additions": 1,
+    "deletions": 1,
+    "labels": [],
+    "linkedIssues": [],
+    "commits": [],
+    "comments": [],
+    "files": [
+      {
+        "filename": "src/app.ts",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "patch": "@@ -1 +1 @@\n-export const greeting = \"hello\";\n+export const greeting = \"hi\";\n"
+      }
+    ],
+    "checkRuns": []
+  }
+}

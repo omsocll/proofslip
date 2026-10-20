@@ -1,0 +1,53 @@
+name: proofslip
+description: Write a plain-English receipt for an AI agent's pull request from GitHub's own evidence.
+author: omsocll
+branding:
+  icon: file-text
+  color: gray-dark
+inputs:
+  github-token:
+    description: Token that can read pull requests and checks, and write a comment. contents:write is needed to publish the receipts branch.
+    required: false
+    default: ${{ github.token }}
+  only-agent-prs:
+    description: Skip pull requests that do not look agent-authored.
+    required: false
+    default: "true"
+  agent-logins:
+    description: Extra GitHub logins to treat as agents, comma-separated. Merged with the built-in list.
+    required: false
+    default: ""
+  agent-labels:
+    description: Labels that mark a pull request as agent-authored, comma-separated.
+    required: false
+    default: agent
+  post-comment:
+    description: Post or update a sticky receipt comment on the pull request.
+    required: false
+    default: "true"
+  commit-receipt:
+    description: Commit receipt.json and receipt.md to the receipts branch.
+    required: false
+    default: "true"
+  receipts-branch:
+    description: Branch that stores the public receipt log.
+    required: false
+    default: receipts
+  fail-on-mismatch:
+    description: Fail the job when the overall verdict is doesnt_match.
+    required: false
+    default: "false"
+  pr-number:
+    description: Pull request number. Normally taken from the event. Set this for workflow_dispatch.
+    required: false
+    default: ""
+outputs:
+  overall:
+    description: checks_out, partly_checked, doesnt_match, or skipped.
+  receipt-id:
+    description: Receipt id, when a receipt was written.
+  comment-url:
+    description: URL of the sticky comment, when one was posted.
+runs:
+  using: node20
+  main: dist/action.js
