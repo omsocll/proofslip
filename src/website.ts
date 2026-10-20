@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { presentReceipt, OVERALL_LABEL } from "./present.js";
 import { generateSite } from "./site.js";
-import { baseCss, BINARY_SVG, copyFonts, renderCredit, renderNav } from "./theme.js";
+import { baseCss, BINARY_SVG, copyBrandAssets, copyFonts, renderCredit, renderIcons, renderNav } from "./theme.js";
 import type { Receipt } from "./types.js";
 
 const USAGE = "proofslip receipt --repo owner/name --pr 42";
@@ -255,6 +255,7 @@ jobs:
 export function generateWebsite(receipts: Receipt[], outDir: string): void {
   fs.mkdirSync(outDir, { recursive: true });
   copyFonts(outDir);
+  copyBrandAssets(outDir);
   generateSite(receipts, path.join(outDir, "log"), {
     homeHref: "../index.html",
     startHref: "../index.html#install",
@@ -389,6 +390,7 @@ function landingPage(receipts: Receipt[]): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>proofslip — Plain-English receipts for AI agent pull requests</title>
+${renderIcons()}
   <meta name="description" content="proofslip writes a plain-English receipt for an AI agent's pull request from GitHub's diff and check runs.">
   <style>${baseCss("")}${EXTRA}</style>
 </head>

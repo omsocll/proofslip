@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { presentReceipt, OVERALL_LABEL } from "./present.js";
 import { receiptSchema } from "./schema.js";
-import { baseCss, copyFonts, renderCredit, renderNav, type ChromeLinks } from "./theme.js";
+import { baseCss, copyFonts, renderCredit, renderIcons, renderNav, type ChromeLinks } from "./theme.js";
 import type { Receipt } from "./types.js";
 
 export function loadReceipts(dir: string): { receipts: Receipt[]; skipped: string[] } {
@@ -164,6 +164,7 @@ function layout(title: string, body: string, assetPrefix = ""): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
+${renderIcons()}
   <style>${baseCss(assetPrefix)}</style>
 </head>
 <body>

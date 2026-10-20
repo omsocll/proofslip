@@ -10026,10 +10026,38 @@ function fontsSource() {
   if (!found) throw new Error("proofslip could not find site/fonts. Run the site build from the repository root.");
   return found;
 }
+var MARK_PATH = "M7 4h18v12l-4.5 9-4.5-9-4.5 9L7 16V4z";
+var MARK_CHECK = "M11.6 11.4 14.4 14.3 21.2 7.4";
+function renderMark() {
+  return `<svg class="mark" viewBox="6 3 20 23" width="19" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="${MARK_PATH}"/><path d="${MARK_CHECK}" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+function renderIcons() {
+  return `  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">`;
+}
+function copyBrandAssets(outDir) {
+  const source = brandSource();
+  import_node_fs.default.mkdirSync(outDir, { recursive: true });
+  for (const name of ["favicon.svg", "favicon.png", "apple-touch-icon.png"]) {
+    import_node_fs.default.copyFileSync(import_node_path.default.join(source, name), import_node_path.default.join(outDir, name));
+  }
+}
+function brandSource() {
+  const here = typeof __dirname === "string" ? __dirname : process.cwd();
+  const candidates = [
+    import_node_path.default.resolve("site"),
+    import_node_path.default.resolve(here, "../site"),
+    import_node_path.default.resolve(here, "../../site")
+  ];
+  const found = candidates.find((dir) => import_node_fs.default.existsSync(import_node_path.default.join(dir, "favicon.svg")));
+  if (!found) throw new Error("proofslip could not find site/favicon.svg. Run the site build from the repository root.");
+  return found;
+}
 function renderNav(links) {
   const item = (href, label, current) => `<a href="${escapeAttr(href)}"${current ? ' aria-current="page"' : ""}>${label}</a>`;
   return `<header class="nav wrap">
-    <a class="brand" href="${escapeAttr(links.home)}">proofslip<svg class="mark" viewBox="0 0 16 18" width="14" height="16" aria-hidden="true"><path fill="currentColor" d="M3 1.2h10a1 1 0 0 1 1 1V16l-2.2-1.35L9.8 16 8 14.65 6.2 16l-2-1.35L2 16V2.2a1 1 0 0 1 1-1Zm1.3 3.1h7.4v1.15H4.3V4.3Zm0 2.5h7.4v1.15H4.3V6.8Zm0 2.5h4.6v1.15H4.3V9.3Z"/></svg></a>
+    <a class="brand" href="${escapeAttr(links.home)}">${renderMark()}proofslip</a>
     <nav class="nav-links" aria-label="Site">
       ${item(links.home, "Home", links.current === "home")}
       ${item(links.log, "Log", links.current === "log")}
@@ -10082,14 +10110,18 @@ img, svg { max-width: 100%; }
   padding: 1.05rem 0 0.4rem;
 }
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   justify-self: start;
   color: var(--ink);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.04em;
+  line-height: 1;
 }
-.mark { width: 0.78em; height: auto; margin-left: 0.28em; vertical-align: -0.08em; color: var(--accent); }
+.mark { width: 19px; height: 22px; max-width: none; flex: none; display: block; color: var(--accent); }
 .nav-links { display: flex; gap: 1.6rem; align-items: center; }
 .nav-links a { color: var(--ink); text-decoration: none; font-weight: 500; }
 .nav-links a[aria-current="page"] { color: var(--accent); }
@@ -10329,6 +10361,7 @@ function layout(title, body, assetPrefix = "") {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
+${renderIcons()}
   <style>${baseCss(assetPrefix)}</style>
 </head>
 <body>
@@ -10595,6 +10628,7 @@ jobs:
 function generateWebsite(receipts, outDir) {
   import_node_fs3.default.mkdirSync(outDir, { recursive: true });
   copyFonts(outDir);
+  copyBrandAssets(outDir);
   generateSite(receipts, import_node_path3.default.join(outDir, "log"), {
     homeHref: "../index.html",
     startHref: "../index.html#install",
@@ -10728,6 +10762,7 @@ function landingPage(receipts) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>proofslip \u2014 Plain-English receipts for AI agent pull requests</title>
+${renderIcons()}
   <meta name="description" content="proofslip writes a plain-English receipt for an AI agent's pull request from GitHub's diff and check runs.">
   <style>${baseCss("")}${EXTRA}</style>
 </head>
