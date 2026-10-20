@@ -1,0 +1,93 @@
+{
+  "schema": "agent-receipt/v0",
+  "id": "omsocll-proofslip-pr-7-c40665e",
+  "created_at": "2026-10-20T12:38:43Z",
+  "repo": "omsocll/proofslip",
+  "pr": {
+    "number": 7,
+    "url": "https://github.com/omsocll/proofslip/pull/7",
+    "head_sha": "c40665e52375e97dbb705bdcfbe38303e22eaeee",
+    "author": "omsocll"
+  },
+  "agent": {
+    "name": "OpenAI Codex",
+    "detected_by": "commit_trailer"
+  },
+  "task": {
+    "source": "pr",
+    "text": "Demo: honest receipt (count label helper)"
+  },
+  "changes": {
+    "files_changed": 6,
+    "additions": 33,
+    "deletions": 9,
+    "files": [
+      "dist/action.js",
+      "dist/cli.js",
+      "dist/index.js",
+      "src/present.ts",
+      "src/text.ts",
+      "tests/text.test.ts"
+    ]
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Added `countLabel` in `src/text.ts` and called it from `src/present.ts`",
+      "type": "file_changed",
+      "verdict": "confirmed",
+      "evidence": [
+        {
+          "kind": "diff",
+          "file": "src/text.ts"
+        },
+        {
+          "kind": "diff",
+          "file": "src/present.ts"
+        },
+        {
+          "kind": "diff",
+          "file": "dist/action.js",
+          "detail": "found in the patch: countLabel"
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Added tests",
+      "type": "added_tests",
+      "verdict": "confirmed",
+      "evidence": [
+        {
+          "kind": "diff",
+          "file": "tests/text.test.ts"
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "All tests pass",
+      "type": "tests_pass",
+      "verdict": "unverifiable",
+      "evidence": [
+        {
+          "kind": "check_run",
+          "name": "test",
+          "conclusion": null,
+          "sha": "c40665e52375e97dbb705bdcfbe38303e22eaeee",
+          "url": "https://github.com/omsocll/proofslip/actions/runs/39423836476/job/118631240784"
+        }
+      ]
+    }
+  ],
+  "red_flags": [],
+  "overall": "partly_checked",
+  "summary_plain": "OpenAI Codex was asked to demo: honest receipt (count label helper). 6 files changed (33 lines added, 9 removed). What we could check matches what the agent said. One claim still needs a human to look at it.",
+  "unverified": [
+    "\"All tests pass\" — GitHub has no matching result for this commit."
+  ],
+  "generator": {
+    "name": "proofslip",
+    "version": "0.1.1"
+  }
+}
