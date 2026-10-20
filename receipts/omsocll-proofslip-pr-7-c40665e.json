@@ -1,7 +1,7 @@
 {
   "schema": "agent-receipt/v0",
   "id": "omsocll-proofslip-pr-7-c40665e",
-  "created_at": "2026-10-20T12:38:57Z",
+  "created_at": "2026-10-20T12:39:16Z",
   "repo": "omsocll/proofslip",
   "pr": {
     "number": 7,
@@ -68,12 +68,12 @@
       "id": "c3",
       "text": "All tests pass",
       "type": "tests_pass",
-      "verdict": "unverifiable",
+      "verdict": "confirmed",
       "evidence": [
         {
           "kind": "check_run",
           "name": "test",
-          "conclusion": null,
+          "conclusion": "success",
           "sha": "c40665e52375e97dbb705bdcfbe38303e22eaeee",
           "url": "https://github.com/omsocll/proofslip/actions/runs/39423836476/job/118631240784"
         }
@@ -81,11 +81,9 @@
     }
   ],
   "red_flags": [],
-  "overall": "partly_checked",
-  "summary_plain": "OpenAI Codex was asked to demo: honest receipt (count label helper). 6 files changed (33 lines added, 9 removed). What we could check matches what the agent said. One claim still needs a human to look at it.",
-  "unverified": [
-    "\"All tests pass\" — GitHub has no matching result for this commit."
-  ],
+  "overall": "checks_out",
+  "summary_plain": "OpenAI Codex was asked to demo: honest receipt (count label helper). 6 files changed (33 lines added, 9 removed). What we could check matches what the agent said.",
+  "unverified": [],
   "generator": {
     "name": "proofslip",
     "version": "0.1.1"
