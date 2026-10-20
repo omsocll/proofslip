@@ -1,0 +1,88 @@
+{
+  "schema": "agent-receipt/v0",
+  "id": "omsocll-proofslip-pr-13-12d0962",
+  "created_at": "2026-10-20T16:40:45Z",
+  "repo": "omsocll/proofslip",
+  "pr": {
+    "number": 13,
+    "url": "https://github.com/omsocll/proofslip/pull/13",
+    "head_sha": "12d0962cced4202cf849859d93be53f26add504c",
+    "author": "omsocll"
+  },
+  "agent": {
+    "name": "Cursor",
+    "detected_by": "body_marker"
+  },
+  "task": {
+    "source": "pr",
+    "text": "Add a receipt mark to the site wordmark and favicon."
+  },
+  "changes": {
+    "files_changed": 9,
+    "additions": 130,
+    "deletions": 8,
+    "files": [
+      "dist/cli.js",
+      "dist/index.js",
+      "site/apple-touch-icon.png",
+      "site/favicon.png",
+      "site/favicon.svg",
+      "src/site.ts",
+      "src/theme.ts",
+      "src/website.ts",
+      "tests/website.test.ts"
+    ]
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Adds a receipt-and-check mark beside the proofslip wordmark in the site header, and uses the same mark as the browser icon",
+      "type": "other",
+      "verdict": "unverifiable",
+      "evidence": [
+        {
+          "kind": "note",
+          "detail": "Nothing in the diff or the check runs can show this."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "Landing, log, and receipt pages link `/favicon.svg`, with `/favicon.png` (32×32) and `/apple-touch-icon.png` (180×180) beside it",
+      "type": "file_changed",
+      "verdict": "confirmed",
+      "evidence": [
+        {
+          "kind": "diff",
+          "file": "site/favicon.svg"
+        },
+        {
+          "kind": "diff",
+          "file": "site/favicon.png"
+        },
+        {
+          "kind": "diff",
+          "file": "site/apple-touch-icon.png"
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "`npm run build:site` copies those three files into the site-dist root",
+      "type": "build_pass",
+      "verdict": "unverifiable",
+      "evidence": []
+    }
+  ],
+  "red_flags": [],
+  "overall": "partly_checked",
+  "summary_plain": "Cursor was asked to add a receipt mark to the site wordmark and favicon. 9 files changed (130 lines added, 8 removed). What we could check matches what the agent said. 2 claims still need a human to look at them.",
+  "unverified": [
+    "\"Adds a receipt-and-check mark beside the proofslip wordmark in the site header, and uses the same mark as the browser icon\" — nothing in GitHub's records covers it.",
+    "\"`npm run build:site` copies those three files into the site-dist root\" — GitHub has no matching result for this commit."
+  ],
+  "generator": {
+    "name": "proofslip",
+    "version": "0.1.1"
+  }
+}
