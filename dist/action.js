@@ -19823,6 +19823,9 @@ function patchText(patch) {
 }
 
 // src/text.ts
+function countLabel(count, singular, plural = `${singular}s`) {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
 function formatList(items) {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0] ?? "";
@@ -20835,8 +20838,7 @@ function summaryPlain(receipt) {
 function describeChanges(receipt) {
   const { files_changed: count, additions, deletions, files } = receipt.changes;
   if (count === 0 || files.length === 0) return "No files changed.";
-  const noun = count === 1 ? "file" : "files";
-  const line = `${count} ${noun} changed, ${additions} ${additions === 1 ? "line" : "lines"} added and ${deletions} removed.`;
+  const line = `${countLabel(count, "file")} changed, ${countLabel(additions, "line")} added and ${deletions} removed.`;
   const readmes = [];
   const tests = [];
   const ci = [];

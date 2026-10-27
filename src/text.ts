@@ -1,3 +1,7 @@
+export function countLabel(count: number, singular: string, plural = `${singular}s`): string {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
 export function formatList(items: string[]): string {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0] ?? "";
